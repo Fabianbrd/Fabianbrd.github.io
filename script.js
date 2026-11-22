@@ -337,6 +337,84 @@
     once.observe(sqlTile);
   } else { run('experiencia'); }
 
+  /* ---------- Cursor animado: avatar de Edgar ---------- */
+  var cur = $('#mecursor'), meBox = $('.mecursor__me'), dot = $('.mecursor__dot'), inner = $('#meInner'), bubble = $('#meBubble');
+  var BUBBLES = [
+    ['a[download]', '¡Mi CV!'],
+    ['a[href*="linkedin"]', '¡Conectemos!'],
+    ['a[href*="github"]', 'Mi código'],
+    ['.tile--project', 'Mira esto 📊'],
+    ['.sql__tab, .sql__run', 'SELECT * 😄'],
+    ['.slicer', 'Filtrar'],
+    ['.gantt__bar', 'Ver puesto'],
+    ['#themeBtn', '¿Luces?'],
+    ['#cmdBtn', 'Ctrl + K'],
+    ['.tools li', '¡La uso!'],
+    ['.seg button', 'Ordenar'],
+    ['.repo', 'Ver repo']
+  ];
+  var cursorOn = false;
+  function cursorAllowed() { return finePointer && !reduce && !!cur; }
+  function setCursor(on) {
+    cursorOn = !!on && cursorAllowed();
+    root.classList.toggle('has-mecursor', cursorOn);
+    try { localStorage.setItem('cursorAvatar', cursorOn ? '1' : '0'); } catch (e) {}
+  }
+  if (cursorAllowed()) {
+    cur.classList.add('is-out');
+    fetch('assets/avatar.svg').then(function (r) { return r.text(); }).then(function (svg) {
+      inner.innerHTML = svg;
+      var pref = null;
+      try { pref = localStorage.getItem('cursorAvatar'); } catch (e) {}
+      setCursor(pref !== '0');
+    }).catch(function () {});
+
+    var mx = innerWidth / 2, my = innerHeight / 2, ax = mx, ay = my, lastX = mx, tilt = 0, idleT, bubbleText = '';
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY;
+      cur.classList.remove('is-out', 'is-wave');
+      clearTimeout(idleT);
+      idleT = setTimeout(function () {
+        if (!cursorOn || bubbleText) return;
+        cur.classList.add('is-wave');
+        bubble.textContent = '¡Hola! 👋';
+        bubble.classList.add('is-on');
+        setTimeout(function () { if (!bubbleText) bubble.classList.remove('is-on'); cur.classList.remove('is-wave'); }, 2200);
+      }, 4000);
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', function () { cur.classList.add('is-out'); });
+    document.addEventListener('pointerdown', function () { cur.classList.add('is-down'); });
+    document.addEventListener('pointerup', function () { cur.classList.remove('is-down'); });
+    document.addEventListener('pointerover', function (e) {
+      var t = e.target.closest ? e.target.closest('a, button, [tabindex="0"], .tile--project') : null;
+      cur.classList.toggle('is-hover', !!t);
+      bubbleText = '';
+      if (t) for (var i = 0; i < BUBBLES.length; i++) { if (t.matches(BUBBLES[i][0])) { bubbleText = BUBBLES[i][1]; break; } }
+      if (bubbleText) { bubble.textContent = bubbleText; bubble.classList.add('is-on'); }
+      else bubble.classList.remove('is-on');
+    });
+    (function frame() {
+      if (cursorOn) {
+        ax += (mx - ax) * .18; ay += (my - ay) * .18;
+        var vx = mx - lastX; lastX = mx;
+        var speed = Math.abs(mx - ax) + Math.abs(my - ay);
+        cur.classList.toggle('is-moving', speed > 6);
+        tilt += (Math.max(-10, Math.min(10, vx * .8)) - tilt) * .15;
+        dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+        meBox.style.transform = 'translate(' + (ax + 14) + 'px,' + (ay + 12) + 'px) rotate(' + tilt.toFixed(2) + 'deg)';
+        var svg = inner.firstElementChild;
+        if (svg) {
+          var r = svg.getBoundingClientRect();
+          var dx = Math.max(-1.2, Math.min(1.2, (mx - (r.left + r.width / 2)) / 40));
+          var dy = Math.max(-1, Math.min(1, (my - (r.top + r.height * .4)) / 40));
+          $$('.pupil', svg).forEach(function (p) { p.setAttribute('transform', 'translate(' + dx + ' ' + dy + ')'); });
+        }
+      }
+      requestAnimationFrame(frame);
+    })();
+  }
+
   /* ---------- Paleta de comandos (Ctrl + K) ---------- */
   var dlg = $('#cmd'), input = $('#cmdInput'), list = $('#cmdList'), sel = 0, shown = [];
   function go(id) { return function () { var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }; }
@@ -351,7 +429,8 @@
     { t: 'Descargar CV en PDF', k: 'cv pdf curriculum descargar', i: 'i-down', f: function () { var a = document.createElement('a'); a.href = 'cv/CV_Edgar_Cabrera_ES.pdf'; a.download = ''; document.body.appendChild(a); a.click(); a.remove(); } },
     { t: 'Abrir LinkedIn', k: 'linkedin perfil contacto', i: 'i-in', f: open('https://www.linkedin.com/in/edgar-fabian-cabrera-bardales-305a50143') },
     { t: 'Abrir GitHub', k: 'github repositorios codigo', i: 'i-gh', f: open('https://github.com/Fabianbrd') },
-    { t: 'Cambiar tema claro / oscuro', k: 'tema modo oscuro claro dark light', i: 'i-moon', f: toggleTheme }
+    { t: 'Cambiar tema claro / oscuro', k: 'tema modo oscuro claro dark light', i: 'i-moon', f: toggleTheme },
+    { t: 'Activar / desactivar cursor animado', k: 'cursor avatar animacion raton', i: 'i-target', f: function () { setCursor(!cursorOn); toast(cursorOn ? 'Cursor animado activado' : 'Cursor normal'); } }
   ];
   function norm(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
   function draw() {

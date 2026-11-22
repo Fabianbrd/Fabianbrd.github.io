@@ -594,6 +594,62 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 20px 40px; }
 .cmd__item small { margin-left: auto; color: var(--muted); font-family: var(--mono); font-size: .72rem; }
 .cmd__empty { padding: 16px; color: var(--muted); text-align: center; }
 
+
+/* ---------- Cursor animado: avatar ---------- */
+.mecursor { display: none; }
+.has-mecursor .mecursor { display: block; }
+.has-mecursor, .has-mecursor a, .has-mecursor button, .has-mecursor [tabindex], .has-mecursor label { cursor: none; }
+.has-mecursor input, .has-mecursor textarea { cursor: text; }
+.mecursor { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+.mecursor.is-out { opacity: 0; }
+.mecursor__dot {
+  position: absolute; left: 0; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+  transition: width .2s, height .2s, margin .2s, background .2s;
+}
+.mecursor.is-hover .mecursor__dot { width: 34px; height: 34px; margin: -17px 0 0 -17px; background: transparent; box-shadow: 0 0 0 2px var(--accent); }
+.mecursor.is-down .mecursor__dot { transform: scale(.7); }
+.mecursor__me { position: absolute; left: 0; top: 0; width: 50px; height: 78px; }
+.mecursor__inner {
+  width: 100%; height: 100%; transform-origin: 50% 100%;
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.35));
+  transition: transform .25s var(--ease);
+}
+[data-theme="dark"] .mecursor__inner { filter: drop-shadow(0 0 1px rgba(255,255,255,.55)) drop-shadow(0 0 6px rgba(94,194,183,.25)) drop-shadow(0 6px 8px rgba(0,0,0,.4)); }
+.mecursor__inner svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.mecursor__inner { animation: bob 2.4s ease-in-out infinite; }
+@keyframes bob { 50% { translate: 0 -2px; } }
+.mecursor.is-hover .mecursor__inner { transform: scale(1.15) translateY(-4px); }
+.mecursor.is-down .mecursor__inner { transform: scale(1.08, .86); }
+/* Partes del cuerpo (estilo bloques) */
+.mecursor .arm, .mecursor .leg, .mecursor .head { transform-box: fill-box; transition: transform .2s; }
+.mecursor .arm, .mecursor .leg { transform-origin: 50% 8%; }
+.mecursor .head { transform-origin: 50% 100%; }
+.mecursor.is-moving .leg-l, .mecursor.is-moving .arm-r { animation: swingA .42s ease-in-out infinite; }
+.mecursor.is-moving .leg-r, .mecursor.is-moving .arm-l { animation: swingB .42s ease-in-out infinite; }
+@keyframes swingA { 0%, 100% { transform: rotate(24deg); } 50% { transform: rotate(-24deg); } }
+@keyframes swingB { 0%, 100% { transform: rotate(-24deg); } 50% { transform: rotate(24deg); } }
+.mecursor.is-hover .arm-r { transform: rotate(-150deg); }
+.mecursor.is-wave .arm-r { animation: waveArm .5s ease-in-out 4; }
+@keyframes waveArm { 0%, 100% { transform: rotate(-150deg); } 50% { transform: rotate(-115deg); } }
+.mecursor.is-wave .head { animation: nod .5s ease-in-out 4; }
+@keyframes nod { 50% { transform: rotate(-5deg); } }
+.mecursor .eyes { transform-box: fill-box; transform-origin: 50% 50%; animation: blink 4.2s infinite; }
+@keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+.mecursor .mouth { opacity: 0; }
+.mecursor .smile { transform-box: fill-box; transform-origin: 50% 0; transition: transform .2s; }
+.mecursor.is-hover .smile, .mecursor.is-wave .smile { transform: scaleY(1.35); }
+.mecursor.is-hover .brow { transform: translateY(-2px); }
+.mecursor__bubble {
+  position: absolute; left: 44px; top: -16px; white-space: nowrap;
+  padding: 5px 10px; border-radius: 12px 12px 12px 3px;
+  background: var(--text); color: var(--bg); font: 600 .78rem var(--font);
+  opacity: 0; transform: translateY(6px) scale(.9); transform-origin: left bottom;
+  transition: opacity .2s, transform .25s var(--ease);
+}
+.mecursor__bubble.is-on { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .mecursor { display: none !important; } }
+
 /* ---------- Toast ---------- */
 .toast {
   position: fixed; left: 50%; bottom: 26px; z-index: 300; transform: translate(-50%, 20px);

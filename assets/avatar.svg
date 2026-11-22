@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 124" role="img" aria-label="Avatar de Edgar Fabián en estilo bloques">
+  <!-- Piernas: vaqueros azul oscuro + zapatillas negras -->
+  <g class="leg leg-l">
+    <rect x="21" y="80" width="18" height="31" fill="#1f3354"/>
+    <rect x="21" y="80" width="18" height="3" fill="#182a46"/>
+    <rect x="35" y="84" width="1" height="25" fill="#c9a25a" opacity=".45"/>
+    <rect x="21" y="107" width="18" height="3" fill="#182a46"/>
+    <rect x="19" y="110" width="21" height="9" rx="2" fill="#111214"/>
+    <rect x="19" y="117" width="21" height="2" rx="1" fill="#2a2c31"/>
+    <rect x="24" y="111.5" width="9" height="1.2" rx=".6" fill="#34363c"/>
+  </g>
+  <g class="leg leg-r">
+    <rect x="41" y="80" width="18" height="31" fill="#233a5f"/>
+    <rect x="41" y="80" width="18" height="3" fill="#182a46"/>
+    <rect x="44" y="84" width="1" height="25" fill="#c9a25a" opacity=".45"/>
+    <rect x="41" y="107" width="18" height="3" fill="#182a46"/>
+    <rect x="40" y="110" width="21" height="9" rx="2" fill="#111214"/>
+    <rect x="40" y="117" width="21" height="2" rx="1" fill="#2a2c31"/>
+    <rect x="47" y="111.5" width="9" height="1.2" rx=".6" fill="#34363c"/>
+  </g>
+
+  <!-- Brazo izquierdo: manga corta negra + brazo -->
+  <g class="arm arm-l">
+    <rect x="5" y="44" width="15" height="13" rx="2" fill="#17181b"/>
+    <rect x="5" y="44" width="15" height="2" rx="1" fill="#2a2c31"/>
+    <rect x="6" y="57" width="13" height="23" rx="2" fill="#e2a67f"/>
+  </g>
+
+  <!-- Torso: camiseta negra lisa -->
+  <g class="torso">
+    <rect x="20" y="42" width="40" height="40" rx="2" fill="#17181b"/>
+    <rect x="20" y="42" width="40" height="2" fill="#2a2c31"/>
+    <path d="M33 42 Q40 49 47 42 Z" fill="#e2a67f"/>
+    <path d="M33 42 Q40 49 47 42" fill="none" stroke="#2c2e33" stroke-width="2"/>
+    <rect x="22" y="44" width="2" height="34" fill="#ffffff" opacity=".06"/>
+    <rect x="20" y="79" width="40" height="4" fill="#0e0f11"/>
+    <rect x="37" y="79.5" width="6" height="3.5" rx="1" fill="#8d8f94"/>
+  </g>
+
+  <!-- Brazo derecho (saluda) -->
+  <g class="arm arm-r">
+    <rect x="60" y="44" width="15" height="13" rx="2" fill="#17181b"/>
+    <rect x="60" y="44" width="15" height="2" rx="1" fill="#2a2c31"/>
+    <rect x="61" y="57" width="13" height="23" rx="2" fill="#e2a67f"/>
+  </g>
+
+  <!-- Cabeza -->
+  <g class="head">
+    <rect x="18" y="6" width="44" height="38" rx="6" fill="#e6ab84"/>
+    <rect x="15" y="20" width="4" height="9" rx="1.5" fill="#d9976f"/>
+    <rect x="61" y="20" width="4" height="9" rx="1.5" fill="#d9976f"/>
+    <!-- Pelo peinado hacia atrás -->
+    <path d="M17 18 L17 9 C17 4 21 1 27 1 L55 1 C61 1 64 4 64 9 L64 18 L60 18 L60 11 L52 9 L40 10 L28 9 L21 12 L21 18 Z" fill="#221813"/>
+    <path d="M27 1 L55 1 C60 1 63 3 64 6 L46 5 L30 6 Z" fill="#3a2a21"/>
+    <!-- Barba -->
+    <path d="M18 27 L22 27 L24 34 L30 37 L35 35 L45 35 L50 37 L56 34 L58 27 L62 27 L62 38 C62 41 59 44 56 44 L24 44 C21 44 18 41 18 38 Z" fill="#241913"/>
+    <path d="M33 33 L47 33 L48 35.5 L32 35.5 Z" fill="#241913"/>
+    <rect x="36" y="38" width="8" height="6" fill="#241913"/>
+    <!-- Boca -->
+    <rect class="mouth" x="34" y="36.5" width="12" height="2" rx="1" fill="#8e3f33"/>
+    <path class="smile" d="M33 36 L47 36 L45 40 L35 40 Z" fill="#ffffff" stroke="#8e3f33" stroke-width="1"/>
+    <!-- Nariz -->
+    <rect x="38.5" y="26" width="3" height="6" rx="1.2" fill="#d38f68"/>
+    <!-- Cejas -->
+    <rect class="brow" x="25" y="17" width="10" height="2.6" rx="1" fill="#221813"/>
+    <rect class="brow" x="45" y="17" width="10" height="2.6" rx="1" fill="#221813"/>
+    <!-- Ojos -->
+    <g class="eyes">
+      <rect x="26" y="21" width="8" height="6" rx="1.5" fill="#ffffff"/>
+      <rect x="46" y="21" width="8" height="6" rx="1.5" fill="#ffffff"/>
+      <rect class="pupil" x="28.5" y="21.8" width="4" height="4.6" rx="1" fill="#2b1a12"/>
+      <rect class="pupil" x="48.5" y="21.8" width="4" height="4.6" rx="1" fill="#2b1a12"/>
+    </g>
+    <!-- Brillo de cabeza tipo bloque -->
+    <rect x="21" y="9" width="3" height="8" rx="1.5" fill="#ffffff" opacity=".18"/>
+  </g>
+</svg>
