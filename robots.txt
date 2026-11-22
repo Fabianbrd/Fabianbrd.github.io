@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fabianbrd.github.io/sitemap.xml

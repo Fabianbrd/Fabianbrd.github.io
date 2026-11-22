@@ -1,0 +1,4 @@
+# Sólo se publican los archivos del sitio
+*.pdf
+!cv/CV_Edgar_Cabrera_ES.pdf
+PUBLICAR.md
