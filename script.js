@@ -471,7 +471,9 @@
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
 
   /* ---------- Repos públicos de GitHub ---------- */
-  var USER = 'Fabianbrd', FEATURED = 'analisis-ventas-supermercado-ecuador';
+  var USER = 'Fabianbrd';
+  // Proyecto destacado (ya mostrado arriba): nombre actual y nombre antiguo
+  var FEATURED = ['venta-supermercado-ecuador', 'analisis-ventas-supermercado-ecuador'];
   var wrap = $('#repos'), grid = $('#repoGrid');
   if (window.fetch) {
     fetch('https://api.github.com/users/' + USER + '/repos?sort=updated&per_page=30')
@@ -480,7 +482,7 @@
         var lu = USER.toLowerCase();
         var items = repos.filter(function (r) {
           var n = r.name.toLowerCase();
-          return !r.fork && !r.archived && n !== FEATURED && n !== lu && n !== lu + '.github.io';
+          return !r.fork && !r.archived && FEATURED.indexOf(n) === -1 &&n !== lu && n !== lu + '.github.io';
         }).slice(0, 6);
         if (!items.length) return;
         items.forEach(function (r) {
